@@ -19,9 +19,22 @@ impl Config {
     }
 }
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
-    let contents = fs::read_to_string(config.file_path)?;
+    let mut results = Vec::new();
 
-    println!("With text:\n{contents}");
+    let contents = fs::read_to_string(config.file_path)?;
+    let query = config.query;
+
+//    println!("With text:\n{contents}");
+
+    for line in contents.lines() {
+        println!("line:\n{line}");
+        if line.contains(&query) {
+            println!("Process the lines before {query}");
+            results.push(line);
+        } else {
+            results.push(line);
+        }
+    }
 
     Ok(())
 }
